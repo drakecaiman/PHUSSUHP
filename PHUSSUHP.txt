@@ -1,0 +1,121 @@
+title PHUSSUHP
+author Duncan Oliver
+homepage www.puzzlescript.net
+background_color gray
+
+========
+OBJECTS
+========
+BlackPlayer
+black white
+.000.
+00100
+01110
+00100
+.000.
+
+WhitePlayer
+white black
+.000.
+00100
+01110
+00100
+.000.
+
+BlackBackground
+black
+
+WhiteBackground
+white
+
+
+BlackWall
+black
+
+WhiteWall
+white
+
+BlackCrate
+black white
+00000
+01110
+01110
+01110
+00000
+
+WhiteCrate
+white black
+00000
+01110
+01110
+01110
+00000
+
+Goal
+black white
+01010
+10101
+01010
+10101
+01010
+
+=======
+LEGEND
+=======
+
+Player = BlackPlayer or WhitePlayer
+Background = BlackBackground or WhiteBackground
+Wall = BlackWall or WhiteWall
+P = BlackPlayer
+. = WhiteBackground
+# = BlackWall
+H = BlackCrate
+O = Goal
+
+=======
+SOUNDS
+=======
+
+================
+COLLISIONLAYERS
+================
+
+Background
+Goal
+BlackPlayer, BlackWall, BlackCrate
+WhitePlayer, WhiteWall, WhiteCrate
+
+======
+RULES
+======
+( Change the background )
+[ action WhitePlayer ][ BlackBackground ] -> [ action WhitePlayer ][ WhiteBackground ]
+[ action BlackPlayer ][ WhiteBackground ] -> [ action BlackPlayer ][ BlackBackground ]
+( Change the walls )
+[ action WhitePlayer ][ WhiteWall ] -> [ action WhitePlayer ][ BlackWall ]
+[ action BlackPlayer ][ BlackWall ] -> [ action BlackPlayer ][ WhiteWall ]
+( Change the crates )
+([ action WhitePlayer ][ WhiteCrate ] -> [ action WhitePlayer ][ BlackCrate ])
+([ action BlackPlayer ][ BlackCrate ] -> [ action BlackPlayer ][ WhiteCrate ])
+( Finally, change the player )
+[ action WhitePlayer ] -> [ BlackPlayer ]
+[ action BlackPlayer ] -> [ WhitePlayer ]
+
+[ > WhitePlayer | WhiteCrate ] -> [ > WhitePlayer | > WhiteCrate ]
+[ > BlackPlayer | BlackCrate ] -> [ > BlackPlayer | > BlackCrate ]
+
+==============
+WINCONDITIONS
+==============
+
+All Player on Goal
+
+=======
+LEVELS
+=======
+
+#########
+#...H...#
+#.P.H.O.#
+#...H...#
+#########
